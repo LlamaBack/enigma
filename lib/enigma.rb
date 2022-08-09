@@ -32,7 +32,24 @@ class Enigma
   end
 
   def crack(message, date = Date.today.strftime("%d%m%y"))
+    shifts = crack_shifts(message[-4..-1])
+    decryption = message.chars.map.with_index { |char, index|
+      if @character_set.include?(char)
+        @character_set[(@character_set.index(char) - shifts[index % 4]) % 27]
+      else
+        char
+      end
+    }.join
+    # encrypted_end.chars.map.with_index { |char, index|
+    #
+    # }
+  end
 
+  def crack_shifts(encrypted_end)
+    end_positions = [26,4,13,3]
+    end_positions.map.with_index { |end_position, index|
+      (@character_set.index(encrypted_end[index]) - end_position) % 27
+    }
   end
 
   def final_shifts(key, date)
