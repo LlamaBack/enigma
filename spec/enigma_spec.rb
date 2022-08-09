@@ -39,4 +39,14 @@ RSpec.describe Enigma do
     allow_any_instance_of(Date).to receive(:strftime).and_return("040895")
     expect(enigma.decrypt("ifmmpaxpsme", "02715")).to eq(expected_hash)
   end
+
+  it "can encrypt with char not in set" do
+    expected_hash = { encryption: "igm!mqa!xqsne",
+                      key: "02715",
+                      date: "040895" }
+    shifts = [1, 2, 1, 2]
+    allow(enigma).to receive(:final_shifts).and_return(shifts)
+    allow_any_instance_of(Date).to receive(:strftime).and_return("040895")
+    expect(enigma.encrypt("hel!lo !world", "02715")).to eq(expected_hash)
+  end
 end

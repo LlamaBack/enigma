@@ -11,9 +11,10 @@ class Enigma
     encryption = message.chars.map.with_index { |char, index|
       if @character_set.include?(char)
         @character_set[(@character_set.index(char) + shifts[index % 4]) % 27]
+      else
+        char
       end
     }.join
-    # require "pry"; binding.pry
     {encryption: encryption, key: key, date: date}
   end
 
@@ -21,11 +22,12 @@ class Enigma
     message = message.downcase
     shifts = final_shifts(key, date)
     decryption = message.chars.map.with_index { |char, index|
-      if @character_set.include?(char)
+      if !@character_set.include?(char)
         @character_set[(@character_set.index(char) - shifts[index % 4]) % 27]
+      else
+        char
       end
     }.join
-    # require "pry"; binding.pry
     {decryption: decryption, key: key, date: date}
   end
 
