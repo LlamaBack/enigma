@@ -32,7 +32,9 @@ class Enigma
   end
 
   def crack(message, date = Date.today.strftime("%d%m%y"))
+    message = message.downcase
     shifts = crack_shifts(message[-4..-1])
+    crack_key(shifts, date)
     decryption = message.chars.map.with_index { |char, index|
       if @character_set.include?(char)
         @character_set[(@character_set.index(char) - shifts[index % 4]) % 27]
@@ -40,9 +42,8 @@ class Enigma
         char
       end
     }.join
-    # encrypted_end.chars.map.with_index { |char, index|
-    #
-    # }
+
+    {decryption: decryption, key: key, date: date}
   end
 
   def crack_shifts(encrypted_end)
@@ -50,6 +51,10 @@ class Enigma
     end_positions.map.with_index { |end_position, index|
       (@character_set.index(encrypted_end[index]) - end_position) % 27
     }
+  end
+
+  def crack_key(shifts, date)
+    offsets = ((date.to_i ** 2) % 10000).to_s
   end
 
   def final_shifts(key, date)

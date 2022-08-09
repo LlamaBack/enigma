@@ -84,6 +84,10 @@ RSpec.describe Enigma do
     expect(enigma.crack_shifts("afod")).to eq([1,1,1,0])
   end
 
+  it "can create keys from shifts when cracking" do
+    expect(enigma.crack_key([1,1,1,1], "291018")).to eq()
+  end
+
   xit "can crack encrypted messages" do
     expected_hash = { decryption: "hello world end",
                       key: "08304",
