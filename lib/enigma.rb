@@ -31,6 +31,10 @@ class Enigma
     {decryption: decryption, key: key, date: date}
   end
 
+  def crack(message, date = Date.today.strftime("%d%m%y"))
+
+  end
+
   def final_shifts(key, date)
     offsets = ((date.to_i ** 2) % 10000).to_s
     [key[0..1].to_i + offsets[0].to_i, key[1..2].to_i + offsets[1].to_i,
