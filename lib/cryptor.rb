@@ -14,4 +14,14 @@ module Cryptor
       end
     }.join
   end
+
+  def decryption(message, shifts, char_set)
+    message.chars.map.with_index { |char, index|
+      if char_set.include?(char)
+        char_set[(char_set.index(char) - shifts[index % 4]) % 27]
+      else
+        char
+      end
+    }.join
+  end
 end
