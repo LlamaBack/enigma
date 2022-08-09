@@ -10,4 +10,7 @@ RSpec.describe Cryptor do
     expect(dummy_class.encryption("hello", [3,27,73,20], char_set)).to eq("keder")
   end
 
+  it "can decrypt a message" do
+    expect(dummy_class.decryption("keder", [3,27,73,20], char_set)).to eq("hello")
+  end
 end
