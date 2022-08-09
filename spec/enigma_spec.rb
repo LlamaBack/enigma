@@ -20,11 +20,13 @@ RSpec.describe Enigma do
     expect(enigma.decrypt("keder ohulw", "02715", "040895")).to eq(expected_hash)
   end
 
-  xit "can encrypt without given date" do
-    expected_hash = { encryption: "keder ohulw",
+  it "can encrypt without given date" do
+    expected_hash = { encryption: "ifmmpaxpsme",
                       key: "02715",
                       date: "040895" }
-    allow_any_instance_of(Data).to recieve(:strftime).and_return
+    shifts = [1, 1, 1, 1]
+    allow(enigma).to receive(:final_shifts).and_return(shifts)
+    allow_any_instance_of(Date).to receive(:strftime).and_return("040895")
     expect(enigma.encrypt("hello world", "02715")).to eq(expected_hash)
   end
 end
