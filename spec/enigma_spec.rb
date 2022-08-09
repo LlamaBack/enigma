@@ -79,6 +79,4 @@ RSpec.describe Enigma do
     allow_any_instance_of(Date).to receive(:strftime).and_return("040895")
     expect(enigma.decrypt("iGm!mqa!xQSne", "02715")).to eq(expected_hash)
   end
-
-  
 end

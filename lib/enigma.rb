@@ -1,4 +1,5 @@
 require "date"
+require_relative "cryptor"
 class Enigma
   include Cryptor
   def initialize
@@ -16,13 +17,7 @@ class Enigma
   def decrypt(message, key = @random_key, date = Date.today.strftime("%d%m%y"))
     message = message.downcase
     shifts = final_shifts(key, date)
-    decryption = message.chars.map.with_index { |char, index|
-      if @character_set.include?(char)
-        @character_set[(@character_set.index(char) - shifts[index % 4]) % 27]
-      else
-        char
-      end
-    }.join
+    decryption = decryption(message, shifts, @character_set)
     {decryption: decryption, key: key, date: date}
   end
 end
